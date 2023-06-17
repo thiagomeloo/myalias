@@ -1,0 +1,73 @@
+name: Deploy
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yml
+  deploy-docs:
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: pip install poetry
+      - name: Install project dependencies
+        run: poetry install
+      - name: Run Tests
+        run: poetry run task test
+      - name: Build docs files
+        run: poetry run task build-docs
+      - name: Build coverage files
+        run: poetry run task build-coverage
+      - name: Create build folder
+        run: mkdir -p build/docs && mkdir -p build/coverage
+      - name: Copy files to build folder
+        run: cp -r site/* build/docs && cp -r htmlcov/* build/coverage
+      - name: Deploy files to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          publish_branch: gh-pages
+  deploy-pip:
+    runs-on: ubuntu-latest
+    needs: deploy-docs
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: pip install poetry
+      - name: Install project dependencies
+        run: poetry install
+      - name: Run Tests
+        run: poetry run task test
+      - name: Update version in pyproject.toml
+        run: |
+          sed -i "s/version = .*/version = \"$GITHUB_REF_NAME\"/g" pyproject.toml
+      - name: Update version in __init__.py
+        run: |
+          sed -i "s/__version__ = .*/__version__ = \"$GITHUB_REF_NAME\"/g" myalias/__init__.py
+      - name: Commit & Push changes
+        uses: Andro999b/push@v1.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'main'
+          message: 'Update version in pyproject.toml'
+      - name: Build & Publish
+        run: |
+          poetry build
+          poetry publish --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }}
+          
