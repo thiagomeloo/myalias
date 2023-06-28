@@ -59,7 +59,7 @@ jobs:
           sed -i "s/version = .*/version = \"$GITHUB_REF_NAME\"/g" pyproject.toml
       - name: Update version in __init__.py
         run: |
-          sed -i "s/__version__ = .*/__version__ = \"$GITHUB_REF_NAME\"/g" myalias/__init__.py
+          sed -i "s/__version__ = .*/__version__ = \'$GITHUB_REF_NAME\'/g" myalias/__init__.py
       - name: Commit & Push changes
         uses: Andro999b/push@v1.3
         with:

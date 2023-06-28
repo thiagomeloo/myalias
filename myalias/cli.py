@@ -1,6 +1,9 @@
 import typer
 from rich.console import Console
 
+from myalias.commands.add_alias_command import AddAliasCommand
+from myalias.commands.list_alias_command import ListAliasCommand
+from myalias.commands.remove_alias_command import RemoveAliasCommand
 from myalias.core.commands.about_command import AboutCommand
 from myalias.core.commands.setup_command import SetupCommand
 from myalias.core.services.append_commands_cli_service import (
@@ -52,13 +55,34 @@ def setup():
     SetupCommand().execute()
 
 
-@app.command(name='updateVersion', hidden=True)
-def updateVersion():
-    """Update version app."""
-    UpdateVersionAppService().execute()
+@app.command(name='add-alias', rich_help_panel='Commands')
+def add_alias(name, description, command):
+    """
+    Add alias to the application.
+    Args:
+        name (str): Name of command.
+        description (str): Description of command.
+        command (str): Command to execute.
+
+    """
+    AddAliasCommand().execute(name, description, command)
 
 
-AppendCommandsCliService().execute(app)
+@app.command(name='remove-alias', rich_help_panel='Commands')
+def remove_alias(name):
+    """
+    Remove alias to the application.
+    Args:
+        name (str): Name of command.
+    """
+    RemoveAliasCommand().execute(name)
+
+
+@app.command(name='list-alias', rich_help_panel='Commands')
+def list_alias():
+    """List alias to the application."""
+    ListAliasCommand().execute()
+
 
 if __name__ == '__main__':
     app()

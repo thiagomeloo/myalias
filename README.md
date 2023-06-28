@@ -8,14 +8,18 @@
 
 ## Install
 
-```
+```bash
   pip install myalias
 ```
 
 ## Setup
 
-```
+```bash
+
   myalias setup
+
+  # if the path is not defined add the following line to the configuration file
+  export PATH="$HOME/.local/bin:$PATH"
 ```
 
 - ### Commands
