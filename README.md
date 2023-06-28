@@ -75,7 +75,7 @@
 #### List
 
 ```
-  myalias remove-alias "ll" "description" "ls -la"
+  myalias list-alias
 
   # return:
   ┏━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
