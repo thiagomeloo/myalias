@@ -69,16 +69,20 @@ class SetupCommand(CommandInterface):
                 case _:
                     console.print('Not found terminal', style='bold red')
 
+            strContent = 'if [ "$(ls -A ' + pathApp + '/aliases/)" ]; then'
+            strContent += '\n\tfor file in ' + pathApp + '/aliases/*; do'
+            strContent += '\n\t\t if [ -f "$file" ]; then'
+            strContent += '\n\t\t\tsource "$file"'
+            strContent += '\n\t\t fi'
+            strContent += '\n\t done'
+            strContent += '\nfi'
+
             if (
                 os.path.exists(shellPath)
-                and source not in open(shellPath).read()
+                and strContent not in open(shellPath).read()
             ):
                 with open(shellPath, 'a') as f:
-                    f.write(
-                        '\nif [ "$(ls -A ' + pathApp + '/aliases/)" ]; then'
-                    )
-                    f.write('\t' + source)
-                    f.write('\nfi')
+                    f.write('\n' + strContent)
                     console.print(
                         'source added in ' + shellPath, style='bold green'
                     )

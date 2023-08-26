@@ -54,6 +54,6 @@ class ListAliasCommand(CommandInterface):
                     )
                     aliasComment = strAlias.split('#')[1].strip()
 
-                    table.add_row(aliasName, aliasCommand, aliasComment)
+                    table.add_row(aliasName, aliasComment, aliasCommand)
 
         console.print(table)
