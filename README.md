@@ -3,7 +3,8 @@
 <h3 align="center">Alias management help tool for terminal.</h3>
 
 <p align="center">
-  <image src="./screenshots/about.png">
+  <image src="https://github.com/thiagomeloo/myalias/blob/main/screenshots/about.png">
+    
 </p>
 
 ## Install
@@ -78,10 +79,11 @@
   myalias list-alias
 
   # return:
-  ┏━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━━━━━┓
-  ┃ Name ┃ Description ┃ Command     ┃
-  ┡━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━━━━━┩
-  │ ll   │ ls -la      │ description │
-  └──────┴─────────────┴─────────────┘
+  ┏━━━━━━┳━━━━━━━━━━━━━┳━━━━━━━━━┓
+  ┃ Name ┃ Description ┃ Command ┃
+  ┡━━━━━━╇━━━━━━━━━━━━━╇━━━━━━━━━┩
+  │ ll   │ description │ ls -la  │
+  └──────┴─────────────┴─────────┘
+
 
 ```
