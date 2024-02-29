@@ -2,6 +2,7 @@ import typer
 from rich.console import Console
 
 from myalias.commands.add_alias_command import AddAliasCommand
+from myalias.commands.import_aliases_command import ImportAliasesCommand
 from myalias.commands.list_alias_command import ListAliasCommand
 from myalias.commands.remove_alias_command import RemoveAliasCommand
 from myalias.core.commands.about_command import AboutCommand
@@ -66,6 +67,18 @@ def add_alias(name, description, command):
 
     """
     AddAliasCommand().execute(name, description, command)
+
+
+@app.command(name='import-aliases', rich_help_panel='Commands')
+def import_aliases(file_path):
+    """
+    Import list aliases to the application.
+    Args:
+        file_path (str): Path to aliases list file.
+
+    """
+    add_alias_command = AddAliasCommand()
+    ImportAliasesCommand(add_alias_command).execute(file_path)
 
 
 @app.command(name='remove-alias', rich_help_panel='Commands')
