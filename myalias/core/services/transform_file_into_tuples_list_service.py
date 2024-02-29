@@ -25,7 +25,13 @@ class TransformFileIntoTuplesListService(ServiceInterface):
 
         with open(file_path, 'r') as file:
             for line in file:
-                alias, description, command = re.findall(r'"(.*?)"', line)
+                values = re.findall(r'"(.*?)"', line)
+
+                if len(values) != 3:
+                    continue
+
+                alias, description, command = values
+
                 tuples_list.append((alias, description, command))
 
         return tuples_list

@@ -6,6 +6,8 @@ def test_transform_file_into_list_of_tuples():
     filename = 'upload_file_test.txt'
 
     with open(filename, 'w') as file:
+        file.write('###\n')
+        file.write('"###" "###" "###" "###"\n')
         file.write('"myalias1" "description 1" "command 1"\n')
         file.write('"myalias2" "description 2" "command 2"\n')
         file.write('"myalias3" "description 3" "command 3"\n')
@@ -13,7 +15,13 @@ def test_transform_file_into_list_of_tuples():
     tuples_list = []
     with open(filename, 'r') as file:
         for line in file:
-            alias, description, command = re.findall(r'"(.*?)"', line)
+            values = re.findall(r'"(.*?)"', line)
+
+            if len(values) != 3:
+                continue
+
+            alias, description, command = values
+
             tuples_list.append((alias, description, command))
 
     assert len(tuples_list) == 3
