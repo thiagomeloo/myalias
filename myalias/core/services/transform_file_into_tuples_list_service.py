@@ -32,6 +32,8 @@ class TransformFileIntoTuplesListService(ServiceInterface):
 
                 alias, description, command = values
 
+                command = command.replace("'", '"')
+
                 tuples_list.append((alias, description, command))
 
         return tuples_list
