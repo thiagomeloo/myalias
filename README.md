@@ -4,13 +4,18 @@
 
 <p align="center">
   <image src="https://github.com/thiagomeloo/myalias/blob/main/screenshots/about.png">
-    
 </p>
 
 ## Install
 
 ```bash
   pip install myalias
+```
+
+## Update
+
+```bash
+  pip pip install myalias --upgrade
 ```
 
 ## Setup
