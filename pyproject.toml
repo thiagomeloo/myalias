@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "myalias"
-version = "0.1.2"
+version = "0.2.0"
 description = ""
 authors = ["Thiago Melo <4thiagomelo5@gmail.com>"]
 license = "GPLv3"
