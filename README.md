@@ -15,7 +15,7 @@
 ## Update
 
 ```bash
-  pip pip install myalias --upgrade
+  pip install myalias --upgrade
 ```
 
 ## Setup
